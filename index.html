@@ -1,1 +1,484 @@
-Hello:)
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ralitsa Dimitrova · Software Engineer</title>
+  <meta name="description" content="Code, design and a habit of asking users first. Master’s student in Media &amp; Human-Centered Computing at TU Wien, looking for software engineering roles.">
+
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+  <!-- Link previews (LinkedIn, Slack, WhatsApp, email). If the site's address changes, update og:url and og:image. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ralitsa Dimitrova · Software Engineer">
+  <meta property="og:description" content="Code, design and a habit of asking users first">
+  <meta property="og:url" content="https://raliexe.github.io/">
+  <meta property="og:image" content="https://raliexe.github.io/img/og-image.jpg?v=2">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Preview of Ralitsa Dimitrova's portfolio with three project cards">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+    /* ---------- Colours (light / dark) ---------- */
+    :root {
+      --page: #f6f6f4;
+      --surface-1: #ffffff;
+      --surface-2: #fafaf9;
+      --border: #d9d9d4;
+      --text-primary: #1c1c1a;
+      --text-secondary: #5f5f5a;
+      --text-muted: #6b6b65;
+      --fill-primary: #1c1c1a;
+      --on-primary: #ffffff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #141413;
+        --surface-1: #1e1e1c;
+        --surface-2: #252523;
+        --border: #3a3a37;
+        --text-primary: #f2f2ef;
+        --text-secondary: #b3b3ad;
+        --text-muted: #92928c;
+        --fill-primary: #f2f2ef;
+        --on-primary: #141413;
+      }
+    }
+
+    /* ---------- Base ---------- */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: clamp(32px, 6vw, 72px) 16px 48px;
+      background: var(--page);
+      color: var(--text-primary);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    body.lb-lock { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--text-primary); }
+    .page { max-width: 1080px; width: 100%; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ---------- Header ---------- */
+    .site-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 2.5rem; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-size: 18px; }   /* font-size sets the name's size */
+    .brand svg { display: block; flex-shrink: 0; }
+    .brand-name { height: 0.7812em; width: auto; }   /* name drawn in the same typeface as the [r] logo */
+    .nav { display: flex; gap: 24px; font-size: 15px; color: var(--text-secondary); }
+    @media (max-width: 420px) { .brand { gap: 10px; font-size: 15px; } .nav { gap: 16px; font-size: 14px; } }
+    @media (max-width: 350px) { .brand { font-size: 13px; } .nav { gap: 12px; font-size: 13px; } }
+
+    /* ---------- Hero ---------- */
+    .hero { margin-bottom: 3rem; }
+    .hero-title { margin: 0 0 12px; font-size: clamp(30px, 5vw, 36px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+    .tagline { margin: 0; max-width: 460px; font-size: 16px; line-height: 1.6; }
+    .about { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 14px 0 0; font-size: 14px; line-height: 1.5; color: var(--text-secondary); }
+
+    /* ---------- Tooltips (any element with data-tip) ---------- */
+    [data-tip] { position: relative; }
+    [data-tip]::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 6px); right: 0; z-index: 2;
+      padding: 4px 8px; border-radius: 6px;
+      background: var(--fill-primary); color: var(--on-primary);
+      font-size: 11px; font-weight: 400; line-height: 1.4; white-space: nowrap;
+      pointer-events: none; opacity: 0; transition: opacity .1s;
+    }
+    [data-tip]:hover::after, [data-tip]:focus-visible::after, [data-tip].show-tip::after { opacity: 1; }
+    .copy-btn::after { right: auto; left: 50%; transform: translateX(-50%); }
+    @media (hover: none) { .copy-btn::after, a[data-tip]::after { display: none; } }
+
+    /* ---------- Contact button ---------- */
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px;
+      border: 1px solid var(--border); border-radius: 6px; background: var(--surface-2); color: var(--text-primary);
+      font: inherit; font-size: 13px; line-height: 1.5; cursor: pointer; transition: background .15s, border-color .15s;
+    }
+    .copy-btn:hover { background: var(--page); border-color: var(--text-muted); }
+    .copy-btn:focus-visible { outline: 2px solid var(--fill-primary); outline-offset: 2px; }
+    .copy-btn .ic-check, .copy-btn.copied .ic-copy { display: none; }
+    .copy-btn.copied .ic-check { display: inline; }
+
+    /* ---------- Projects ---------- */
+    .projects-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 16px; }
+    .section-title { margin: 0; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+    .hint { font-size: 11px; color: var(--text-muted); }
+    .hint-touch { display: none; }
+    @media (hover: none) { .hint-hover { display: none; } .hint-touch { display: inline; } }
+    .projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    @media (max-width: 600px) { .projects { grid-template-columns: 1fr; } }
+
+    /* ---------- Card ---------- */
+    .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color .2s ease; }
+    .card:hover { border-color: var(--text-muted); }
+    .card-body { padding: 16px; }
+    .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .card-year { margin: 0 0 4px; font-size: 12px; color: var(--text-muted); }
+    .card-title { margin: 0 0 6px; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
+    .card-text { margin: 0 0 16px; font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+    @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+
+    /* GitHub icon (link or private button) */
+    .repo-link {
+      flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; margin: -2px -6px 0 0; padding: 0; border: none; border-radius: 8px;
+      background: none; color: var(--text-muted); font: inherit; transition: color .15s, background .15s;
+    }
+    .repo-link:hover, .repo-link:focus-visible { color: var(--text-primary); background: var(--page); }
+    .repo-link svg { display: block; }
+    .repo-private { cursor: help; }
+    .lock-badge { position: absolute; right: 2px; bottom: 3px; }
+
+    /* Tags */
+    .tag-groups { display: flex; flex-direction: column; gap: 10px; }
+    .tag-label { display: block; margin-bottom: 5px; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tags span { padding: 1px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-2); color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+
+    /* ---------- Slideshow ---------- */
+    .slideshow { position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: var(--surface-2); border-bottom: 1px solid var(--border); cursor: zoom-in; }
+    .slideshow img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .6s ease-in-out; }
+    .slideshow img.active { opacity: 1; }
+    .slideshow.fit img { object-fit: contain; object-position: center; }
+    .slideshow.fit img:first-child { object-fit: cover; }
+    .dots { position: absolute; left: 50%; bottom: 8px; z-index: 1; transform: translateX(-50%); display: flex; gap: 5px; padding: 4px 7px; border-radius: 999px; background: rgba(0,0,0,.45); opacity: 0; transition: opacity .25s; pointer-events: none; }
+    .slideshow.playing .dots { opacity: 1; }
+    .dots span { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.45); transition: background .2s, transform .2s; }
+    .dots span.on { background: #fff; transform: scale(1.25); }
+
+    /* ---------- Lightbox ---------- */
+    .lb { position: fixed; inset: 0; z-index: 50; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 56px 72px 24px; background: rgba(12,12,11,.92); }
+    .lb.open { display: flex; }
+    .lb img { max-width: 100%; max-height: calc(100vh - 150px); object-fit: contain; border-radius: 8px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.5); }
+    .lb-caption { max-width: 720px; color: #e8e8e4; font-size: 13px; line-height: 1.5; text-align: center; }
+    .lb-count { color: #9a9a94; font-size: 12px; }
+    .lb button { position: absolute; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; border-radius: 50%; background: rgba(255,255,255,.1); color: #fff; cursor: pointer; transition: background .15s; }
+    .lb button:hover { background: rgba(255,255,255,.22); }
+    .lb button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .lb-close { top: 12px; right: 12px; }
+    .lb-prev { left: 14px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 14px; top: 50%; transform: translateY(-50%); }
+    @media (max-width: 600px) {
+      .lb { padding: 56px 12px 72px; }
+      .lb-prev, .lb-next { top: auto; bottom: 14px; transform: none; }
+      .lb-prev { left: calc(50% - 56px); }
+      .lb-next { right: calc(50% - 56px); }
+    }
+
+    /* ---------- Footer ---------- */
+    .site-footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 0.5px solid var(--border); font-size: 11px; color: var(--text-muted); text-align: center; }
+  </style>
+</head>
+<body>
+<!-- Icons used more than once -->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <symbol id="icon-github" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+</svg>
+
+<div class="page">
+
+  <header class="site-header">
+    <span class="brand">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect width="32" height="32" rx="7" fill="var(--fill-primary)"/><path fill="var(--on-primary)" d="M6.24 10.86H9.71V12.16H8.06V22.04H9.71V23.34H6.24ZM19.65 15.95Q19.32 15.65 18.88 15.50Q18.44 15.35 17.91 15.35Q17.28 15.35 16.80 15.57Q16.33 15.79 16.07 16.22Q15.90 16.48 15.84 16.85Q15.77 17.22 15.77 17.97V21.5H13.77V13.84H15.77V15.03Q16.07 14.37 16.68 14.01Q17.28 13.65 18.10 13.65Q18.51 13.65 18.90 13.75Q19.29 13.85 19.65 14.04ZM25.75 10.86V23.34H22.28V22.04H23.93V12.16H22.28V10.86Z"/></svg>
+      <svg class="brand-name" viewBox="133 -1665 20703 1694" role="img" aria-label="Ralitsa Dimitrova"><path fill="currentColor" d="M807 -705Q851 -696 884 -664Q916 -631 963 -537L1233 0H909L729 -377Q721 -393 708 -421Q629 -590 522 -590H428V0H133V-1493H559Q847 -1493 972 -1391Q1098 -1289 1098 -1059Q1098 -905 1023 -814Q948 -723 807 -705ZM428 -1245V-838H567Q688 -838 740 -886Q793 -933 793 -1042Q793 -1151 741 -1198Q689 -1245 567 -1245ZM1933 -526Q1769 -526 1704 -484Q1639 -442 1639 -340Q1639 -264 1684 -219Q1729 -174 1806 -174Q1922 -174 1986 -262Q2050 -349 2050 -506V-526ZM2341 -639V0H2050V-125Q1997 -51 1914 -11Q1831 29 1731 29Q1540 29 1434 -72Q1327 -173 1327 -354Q1327 -550 1454 -644Q1581 -737 1847 -737H2050V-786Q2050 -857 1998 -894Q1947 -930 1847 -930Q1742 -930 1644 -904Q1545 -877 1438 -819V-1069Q1535 -1109 1635 -1128Q1735 -1147 1847 -1147Q2120 -1147 2230 -1036Q2341 -925 2341 -639ZM2853 -467V-1331H2556V-1556H3146V-467Q3146 -335 3187 -280Q3228 -225 3326 -225H3560V0H3244Q3035 0 2944 -108Q2853 -216 2853 -467ZM3920 -1120H4500V-225H4864V0H3842V-225H4207V-895H3920ZM4207 -1665H4500V-1323H4207ZM5622 -1438V-1120H6005V-895H5622V-365Q5622 -290 5658 -258Q5695 -225 5780 -225H6005V0H5759Q5507 0 5418 -80Q5329 -161 5329 -379V-895H5043V-1120H5329V-1438ZM7156 -1085V-829Q7075 -881 6988 -908Q6900 -934 6812 -934Q6714 -934 6664 -906Q6614 -877 6614 -821Q6614 -741 6828 -691L6839 -688L6923 -668Q7083 -630 7158 -546Q7232 -461 7232 -317Q7232 -144 7118 -58Q7005 29 6777 29Q6676 29 6570 12Q6464 -6 6355 -41V-297Q6452 -242 6552 -213Q6653 -184 6747 -184Q6850 -184 6903 -214Q6956 -244 6956 -301Q6956 -357 6918 -387Q6881 -417 6740 -451L6659 -469Q6491 -507 6414 -588Q6337 -669 6337 -805Q6337 -967 6454 -1057Q6571 -1147 6783 -1147Q6878 -1147 6972 -1132Q7067 -1116 7156 -1085ZM8098 -526Q7934 -526 7869 -484Q7804 -442 7804 -340Q7804 -264 7849 -219Q7894 -174 7971 -174Q8087 -174 8151 -262Q8215 -349 8215 -506V-526ZM8506 -639V0H8215V-125Q8162 -51 8079 -11Q7996 29 7896 29Q7705 29 7598 -72Q7492 -173 7492 -354Q7492 -550 7619 -644Q7746 -737 8012 -737H8215V-786Q8215 -857 8164 -894Q8112 -930 8012 -930Q7907 -930 7808 -904Q7710 -877 7603 -819V-1069Q7700 -1109 7800 -1128Q7900 -1147 8012 -1147Q8285 -1147 8396 -1036Q8506 -925 8506 -639ZM10296 -1227V-266H10376Q10550 -266 10624 -376Q10698 -485 10698 -748Q10698 -1009 10624 -1118Q10550 -1227 10376 -1227ZM10001 -1493H10317Q10683 -1493 10844 -1318Q11005 -1144 11005 -748Q11005 -351 10844 -176Q10683 0 10317 0H10001ZM11318 -1120H11898V-225H12262V0H11240V-225H11605V-895H11318ZM11605 -1665H11898V-1323H11605ZM13020 -1008Q13053 -1079 13104 -1113Q13155 -1147 13229 -1147Q13374 -1147 13430 -1047Q13485 -947 13485 -631V0H13245V-719Q13245 -844 13226 -886Q13207 -928 13157 -928Q13107 -928 13087 -885Q13067 -842 13067 -719V0H12830V-719Q12830 -842 12810 -885Q12790 -928 12740 -928Q12690 -928 12671 -886Q12652 -844 12652 -719V0H12412V-1120H12625V-1004Q12650 -1070 12705 -1108Q12760 -1147 12828 -1147Q12896 -1147 12952 -1106Q13008 -1066 13020 -1008ZM13784 -1120H14364V-225H14728V0H13706V-225H14071V-895H13784ZM14071 -1665H14364V-1323H14071ZM15486 -1438V-1120H15869V-895H15486V-365Q15486 -290 15522 -258Q15559 -225 15644 -225H15869V0H15623Q15371 0 15282 -80Q15193 -161 15193 -379V-895H14907V-1120H15193V-1438ZM17180 -811Q17132 -855 17068 -877Q17003 -899 16926 -899Q16833 -899 16764 -866Q16694 -834 16656 -772Q16632 -734 16622 -680Q16613 -626 16613 -516V0H16320V-1120H16613V-946Q16656 -1042 16745 -1094Q16834 -1147 16953 -1147Q17013 -1147 17070 -1132Q17128 -1118 17180 -1090ZM17878 -909Q17773 -909 17713 -816Q17653 -724 17653 -559Q17653 -394 17713 -302Q17773 -209 17878 -209Q17984 -209 18044 -302Q18104 -394 18104 -559Q18104 -724 18044 -816Q17984 -909 17878 -909ZM17360 -559Q17360 -830 17500 -988Q17641 -1147 17878 -1147Q18116 -1147 18256 -988Q18397 -830 18397 -559Q18397 -288 18256 -130Q18116 29 17878 29Q17641 29 17500 -130Q17360 -288 17360 -559ZM19648 -1120 19292 0H18931L18575 -1120H18872L19111 -246L19351 -1120ZM20428 -526Q20264 -526 20199 -484Q20134 -442 20134 -340Q20134 -264 20179 -219Q20224 -174 20301 -174Q20417 -174 20481 -262Q20545 -349 20545 -506V-526ZM20836 -639V0H20545V-125Q20492 -51 20409 -11Q20326 29 20226 29Q20035 29 19928 -72Q19822 -173 19822 -354Q19822 -550 19949 -644Q20076 -737 20342 -737H20545V-786Q20545 -857 20494 -894Q20442 -930 20342 -930Q20237 -930 20138 -904Q20040 -877 19933 -819V-1069Q20030 -1109 20130 -1128Q20230 -1147 20342 -1147Q20615 -1147 20726 -1036Q20836 -925 20836 -639Z"/></svg>
+    </span>
+    <nav class="nav">
+      <a href="https://github.com/raliexe" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/ralitsa-d-0163b93bb/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1 class="hero-title">Software Engineer</h1>
+    <p class="tagline">Code, design and a habit of asking users first</p>
+    <p class="about">
+      <span>Master’s student in Media &amp; Human-Centered Computing at TU Wien, looking for software engineering roles.</span>
+      <button class="copy-btn" type="button" id="copy-email" data-tip="Copy my email address" aria-label="Contact me: copy my email address">
+        <svg class="ic-copy" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg class="ic-check" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        <span class="btn-label">Contact me</span>
+      </button>
+    </p>
+    <span id="copy-status" class="visually-hidden" aria-live="polite"></span>
+  </section>
+
+  <main>
+    <div class="projects-head">
+      <h2 class="section-title">Projects</h2>
+      <span class="hint"><span class="hint-hover">[ Hover to preview · click to enlarge ]</span><span class="hint-touch">[ Tap to enlarge ]</span></span>
+    </div>
+
+    <div class="projects">
+
+      <article class="card">
+        <div class="slideshow" tabindex="0" aria-label="theTorch screenshots, hover to play, click to enlarge">
+          <img src="img/torch/00-thumbnail.jpg" alt="theTorch: concept poster, home dashboard on a tablet and the physical Torch prototype" class="active">
+          <img src="img/torch/01-home.jpg" alt="theTorch: Home dashboard with team forest carousel, air quality and torch light information box" loading="lazy">
+          <img src="img/torch/02-digital-forest.jpg" alt="theTorch: Digital Forest where every team grows its own tree" loading="lazy">
+          <img src="img/torch/03-puzzle-tree.jpg" alt="theTorch: Puzzle tree where each piece unlocks at a team milestone, with progress and next reward" loading="lazy">
+          <img src="img/torch/04-leaderboard.jpg" alt="theTorch: Leaderboard of teams ranked by total points, with distance cycled" loading="lazy">
+          <img src="img/torch/05-team.jpg" alt="theTorch: Team page with member ranking and team points" loading="lazy">
+          <img src="img/torch/06-profile.jpg" alt="theTorch: Personal record with points, team rank, achievements and weekly progress chart" loading="lazy">
+          <img src="img/torch/07-poster.jpg" alt="theTorch: Concept poster explaining the idea" loading="lazy">
+          <img src="img/torch/08-prototype.jpg" alt="theTorch: Wooden prototype with LED light and the app on a mounted tablet" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-head">
+            <div>
+              <p class="card-year">2026 · Team of 5</p>
+              <h3 class="card-title">theTorch</h3>
+            </div>
+            <a class="repo-link" href="https://github.com/raliexe/the-torch" target="_blank" rel="noopener noreferrer" data-tip="View on GitHub" aria-label="theTorch source code on GitHub">
+              <svg width="20" height="20" aria-hidden="true"><use href="#icon-github"/></svg>
+            </a>
+          </div>
+          <p class="card-text">Gamified cycling platform for students, prototyped as a campus installation</p>
+          <div class="tag-groups">
+            <div><span class="tag-label">Backend</span><div class="tags"><span>Java</span><span>Spring Boot</span><span>REST API</span><span>Hibernate</span><span>Maven</span><span>SQLite</span></div></div>
+            <div><span class="tag-label">Frontend</span><div class="tags"><span>Angular</span><span>TypeScript</span><span>HTML</span><span>CSS</span></div></div>
+            <div><span class="tag-label">AI Tools</span><div class="tags"><span>Cursor</span></div></div>
+            <div><span class="tag-label">Hardware &amp; Prototyping</span><div class="tags"><span>Physical Prototyping</span><span>Tangible Interface</span></div></div>
+            <div><span class="tag-label">UX &amp; Research</span><div class="tags"><span>Design Thinking</span><span>User Research</span><span>Expert Interviews</span><span>Usability Testing</span></div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="slideshow fit" tabindex="0" aria-label="Database of Fails screenshots, hover to play, click to enlarge">
+          <img src="img/dof/00-thumbnail.jpg" alt="Database of Fails: fail database and UML data model" class="active">
+          <img src="img/dof/01-fail-database.jpg" alt="Database of Fails: Grid of the community's shared 3D printing fails" loading="lazy">
+          <img src="img/dof/02-fail-details.jpg" alt="Database of Fails: Fail detail page with description and image gallery" loading="lazy">
+          <img src="img/dof/03-likes-comments.jpg" alt="Database of Fails: Likes, comments and replies on a fail" loading="lazy">
+          <img src="img/dof/04-my-fails.jpg" alt="Database of Fails: My Fails page for adding, editing and deleting your own fails" loading="lazy">
+          <img src="img/dof/05-edit-fail.jpg" alt="Database of Fails: Editing a fail with multiple image uploads" loading="lazy">
+          <img src="img/dof/06-pdf-export.jpg" alt="Database of Fails: Fail entry exported as PDF" loading="lazy">
+          <img src="img/dof/07-user-management.jpg" alt="Database of Fails: Admin user management with account locking and unlocking" loading="lazy">
+          <img src="img/dof/08-uml-data-model.jpg" alt="Database of Fails: UML class diagram of the data model" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-head">
+            <div>
+              <p class="card-year">2024 · Bachelor’s thesis</p>
+              <h3 class="card-title">Database of Fails</h3>
+            </div>
+            <a class="repo-link" href="https://github.com/raliexe/database-of-fails" target="_blank" rel="noopener noreferrer" data-tip="View on GitHub" aria-label="Database of Fails source code on GitHub">
+              <svg width="20" height="20" aria-hidden="true"><use href="#icon-github"/></svg>
+            </a>
+          </div>
+          <p class="card-text">Community platform for sharing 3D printing fails</p>
+          <div class="tag-groups">
+            <div><span class="tag-label">Backend</span><div class="tags"><span>Java</span><span>Spring Boot</span><span>Spring Security</span><span>REST API</span><span>Hibernate</span><span>Maven</span><span>PostgreSQL</span></div></div>
+            <div><span class="tag-label">Frontend</span><div class="tags"><span>Angular</span><span>TypeScript</span><span>HTML</span><span>CSS</span></div></div>
+            <div><span class="tag-label">UX &amp; Research</span><div class="tags"><span>Research through Design</span></div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="slideshow" tabindex="0" aria-label="Ticketline screenshots, hover to play, click to enlarge">
+          <img src="img/ticketline/00-thumbnail.jpg" alt="Ticketline: event details, seat map and cart" class="active">
+          <img src="img/ticketline/01-live-search.jpg" alt="Ticketline: Search suggestions for matching events and artists appear as you type" loading="lazy">
+          <img src="img/ticketline/02-advanced-search.jpg" alt="Ticketline: Advanced search filtering performances by location, category, price and more" loading="lazy">
+          <img src="img/ticketline/03-event-details.jpg" alt="Ticketline: Event details page with upcoming performances" loading="lazy">
+          <img src="img/ticketline/04-seat-map.jpg" alt="Ticketline: Interactive seat map with price categories, standing area and seat availability" loading="lazy">
+          <img src="img/ticketline/05-merch-shop.jpg" alt="Ticketline: Merchandise shop, payable in euros or bonus points" loading="lazy">
+          <img src="img/ticketline/06-cart.jpg" alt="Ticketline: Cart listing selected tickets with sector, seat and price" loading="lazy">
+          <img src="img/ticketline/07-checkout.jpg" alt="Ticketline: Checkout with billing details and bonus point total" loading="lazy">
+          <img src="img/ticketline/08-my-orders.jpg" alt="Ticketline: Paid orders overview with PDF invoice download" loading="lazy">
+          <img src="img/ticketline/09-pdf-invoice.jpg" alt="Ticketline: Generated PDF invoice for an order" loading="lazy">
+          <img src="img/ticketline/10-edit-profile.jpg" alt="Ticketline: Edit profile with personal details and profile picture" loading="lazy">
+          <img src="img/ticketline/11-admin-users.jpg" alt="Ticketline: Admin user search with account locking and password reset" loading="lazy">
+          <img src="img/ticketline/12-admin-create-event.jpg" alt="Ticketline: Admin form for creating events with artist, category and duration" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-head">
+            <div>
+              <p class="card-year">2022 · Team of 6</p>
+              <h3 class="card-title">Ticketline</h3>
+            </div>
+            <button class="repo-link repo-private" type="button" data-tip="Private repository" aria-label="Ticketline source code is in a private repository.">
+              <svg width="20" height="20" aria-hidden="true"><use href="#icon-github"/></svg>
+              <svg class="lock-badge" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="var(--surface-1)"/><rect x="6.5" y="11" width="11" height="8" rx="1.5" fill="currentColor"/><path d="M9 11V8.5a3 3 0 0 1 6 0V11" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </button>
+          </div>
+          <p class="card-text">Online ticketing platform for concerts and live events</p>
+          <div class="tag-groups">
+            <div><span class="tag-label">Backend</span><div class="tags"><span>Java</span><span>Spring Boot</span><span>Spring Security</span><span>REST API</span><span>Hibernate</span><span>Maven</span><span>H2</span></div></div>
+            <div><span class="tag-label">Frontend</span><div class="tags"><span>Angular</span><span>TypeScript</span><span>HTML</span><span>CSS</span></div></div>
+            <div><span class="tag-label">Testing &amp; DevOps</span><div class="tags"><span>JUnit</span><span>GitLab CI/CD</span><span>Docker</span></div></div>
+            <div><span class="tag-label">Method</span><div class="tags"><span>Scrum</span></div></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">No frameworks were harmed in the making of this site</footer>
+</div>
+
+<!-- Screenshot viewer (lightbox) -->
+<div class="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="lb-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-prev" type="button" aria-label="Previous screenshot"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <img alt="">
+  <p class="lb-caption"></p>
+  <p class="lb-count" aria-live="polite"></p>
+  <button class="lb-next" type="button" aria-label="Next screenshot"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+
+<script>
+  // ---------- Contact: copy the email address instead of showing it on the page ----------
+  const copyBtn = document.getElementById('copy-email');
+  const copyLabel = copyBtn.querySelector('.btn-label');
+  const copyStatus = document.getElementById('copy-status');
+  const email = 'ralitsa.h.dimitrova' + '@' + 'gmail.com';
+  let copyReset;
+
+  function copyDone(ok) {
+    copyLabel.textContent = ok ? 'Email copied' : 'Copy failed';
+    copyBtn.classList.toggle('copied', ok);
+    copyStatus.textContent = ok ? 'Email address copied to clipboard' : '';
+    clearTimeout(copyReset);
+    copyReset = setTimeout(() => {
+      copyLabel.textContent = 'Contact me';
+      copyBtn.classList.remove('copied');
+      copyStatus.textContent = '';
+    }, 2000);
+  }
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(email).then(() => copyDone(true), () => copyDone(false));
+  });
+
+  // ---------- Private repo note: show it on tap (touch screens have no hover) ----------
+  document.querySelectorAll('.repo-private').forEach((btn) => {
+    let t;
+    btn.addEventListener('click', () => {
+      btn.classList.add('show-tip');
+      clearTimeout(t);
+      t = setTimeout(() => btn.classList.remove('show-tip'), 2500);
+    });
+  });
+
+  // ---------- Lightbox: see a screenshot large and flip through them ----------
+  const lb = document.querySelector('.lb');
+  const lbImg = lb.querySelector('img');
+  const lbCaption = lb.querySelector('.lb-caption');
+  const lbCount = lb.querySelector('.lb-count');
+  const lbButtons = lb.querySelectorAll('button');
+  let lbSlides = [], lbIndex = 0, lbReturnTo = null;
+
+  function lbShow(i) {
+    lbIndex = (i + lbSlides.length) % lbSlides.length;
+    const slide = lbSlides[lbIndex];
+    lbImg.src = slide.getAttribute('src').replace(/[^/]+$/, 'full/$&');   // sharp full-size version from img/…/full/
+    lbImg.alt = slide.alt;
+    lbCaption.textContent = slide.alt.replace(/^[^:]+:\s*/, '');   // drop the "Project: " prefix
+    lbCount.textContent = (lbIndex + 1) + ' / ' + lbSlides.length;
+  }
+
+  function openLightbox(slides, i) {
+    // The first picture is a collage thumbnail, so the viewer only shows the screenshots after it
+    lbSlides = [...slides].slice(1);
+    lbReturnTo = document.activeElement;
+    lbShow(Math.max(0, lbSlides.indexOf(slides[i])));
+    lb.classList.add('open');
+    document.body.classList.add('lb-lock');
+    lb.querySelector('.lb-close').focus();
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.classList.remove('lb-lock');
+    if (lbReturnTo && lbReturnTo.focus) {
+      lbReturnTo.skipPlay = true;   // don't restart the slideshow just because focus returns
+      lbReturnTo.focus({ preventScroll: true });
+    }
+  }
+
+  lb.querySelector('.lb-close').addEventListener('click', closeLightbox);
+  lb.querySelector('.lb-prev').addEventListener('click', () => lbShow(lbIndex - 1));
+  lb.querySelector('.lb-next').addEventListener('click', () => lbShow(lbIndex + 1));
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
+    else if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+    else if (e.key === 'Tab') {   // keep keyboard focus inside the viewer
+      const first = lbButtons[0], last = lbButtons[lbButtons.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  let touchX = null;   // swipe left/right on phones
+  lb.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) > 40) lbShow(lbIndex + (dx < 0 ? 1 : -1));
+  });
+
+  // ---------- Slideshows: hover to cycle, click to enlarge ----------
+  document.querySelectorAll('.slideshow').forEach((box) => {
+    const slides = box.querySelectorAll('img');
+    let current = 0, timer = null, openAt = null;
+
+    // Progress dots, one per screenshot, visible while playing
+    const dots = document.createElement('div');
+    dots.className = 'dots';
+    dots.setAttribute('aria-hidden', 'true');
+    slides.forEach(() => dots.appendChild(document.createElement('span')));
+    box.appendChild(dots);
+    dots.children[0].classList.add('on');
+
+    function show(i) {
+      slides[current].classList.remove('active');
+      dots.children[current].classList.remove('on');
+      current = i;
+      slides[current].classList.add('active');
+      dots.children[current].classList.add('on');
+    }
+    function start() {
+      if (timer) return;
+      box.classList.add('playing');
+      show((current + 1) % slides.length);
+      timer = setInterval(() => show((current + 1) % slides.length), 1600);
+    }
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+      box.classList.remove('playing');
+      show(0);
+    }
+    function enlarge(i) {
+      stop();
+      openLightbox(slides, i);
+    }
+
+    box.setAttribute('role', 'button');
+    box.addEventListener('mouseenter', start);
+    box.addEventListener('mouseleave', stop);
+    box.addEventListener('focus', () => { if (box.skipPlay) { box.skipPlay = false; return; } start(); });
+    box.addEventListener('blur', stop);
+    // Remember the picture visible when a tap/click began (a tap also triggers hover, which advances the slideshow)
+    box.addEventListener('pointerdown', () => { openAt = current; });
+    box.addEventListener('click', () => { enlarge(openAt !== null ? openAt : current); openAt = null; });
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); enlarge(current); }
+    });
+  });
+</script>
+</body>
+</html>
